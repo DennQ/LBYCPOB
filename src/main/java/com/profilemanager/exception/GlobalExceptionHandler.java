@@ -1,11 +1,11 @@
-package ph.edu.dlsu.lbycpob.profilemanager.exception;
+package com.profilemanager.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import ph.edu.dlsu.lbycpob.profilemanager.dto.Dtos.ApiError;
+import com.profilemanager.dto.Dtos.ApiError;
 
 import java.util.NoSuchElementException;
 

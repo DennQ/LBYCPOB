@@ -1,4 +1,4 @@
-package ph.edu.dlsu.lbycpob.profilemanager.model;
+package com.profilemanager.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

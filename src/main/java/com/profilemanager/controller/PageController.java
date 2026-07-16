@@ -1,4 +1,4 @@
-package ph.edu.dlsu.lbycpob.profilemanager.controller;
+package com.profilemanager.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
