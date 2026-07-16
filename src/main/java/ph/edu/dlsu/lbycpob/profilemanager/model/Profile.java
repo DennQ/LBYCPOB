@@ -10,8 +10,10 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-  //Represents a user profile stored in the profiles database table.
-
+/**
+ * Maps to public.profiles table.
+ * Represents a user profile stored in the database.
+ */
 @Entity
 @Table(name = "profiles")
 public class Profile {
@@ -42,14 +44,8 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(
-            UUID id,
-            String name,
-            String status,
-            String quote,
-            String picture,
-            OffsetDateTime createdAt
-    ) {
+    public Profile(UUID id, String name, String status, String quote,
+                   String picture, OffsetDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -126,14 +122,7 @@ public class Profile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                id,
-                name,
-                status,
-                quote,
-                picture,
-                createdAt
-        );
+        return Objects.hash(id, name, status, quote, picture, createdAt);
     }
 
     @Override
@@ -153,7 +142,6 @@ public class Profile {
     }
 
     public static final class Builder {
-
         private UUID id;
         private String name;
         private String status = "";
@@ -195,14 +183,7 @@ public class Profile {
         }
 
         public Profile build() {
-            return new Profile(
-                    id,
-                    name,
-                    status,
-                    quote,
-                    picture,
-                    createdAt
-            );
+            return new Profile(id, name, status, quote, picture, createdAt);
         }
 
         public String getName() {
