@@ -6,9 +6,18 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+/**
+ * Uploads bytes to a Supabase Storage bucket over Supabase's documented REST
+ * endpoint (POST /storage/v1/object/{bucket}/{path}), using the Supabase
+ * "secret" API key (format sb_secret_...).
+ *
+ * Both the "apikey" and "Authorization: Bearer" headers carry the same secret
+ * key -- Supabase requires the two to match exactly.
+ */
 @Service
 public class SupabaseStorageService {
 
@@ -29,22 +38,26 @@ public class SupabaseStorageService {
         this.bucket = bucket;
     }
 
+    /**
+     * Uploads (or overwrites, via x-upsert) the given bytes at {@code path}
+     * within the configured bucket, and returns the public URL. The bucket
+     * must already exist and be set to Public in the Supabase dashboard.
+     */
     public String uploadAndGetPublicUrl(String path, byte[] content, String contentType) {
         if (secretKey == null || secretKey.isBlank()) {
             throw new IllegalStateException(
-                "SUPABASE_SECRET_KEY is not configured. " +
-                "Set it to your Supabase Secret API key (sb_secret_...)."
-            );
+                    "SUPABASE_SECRET_KEY is not configured -- avatar upload is unavailable. " +
+                            "Set it to your Supabase Secret API key (sb_secret_...) from " +
+                            "Project Settings -> API Keys -> Publishable and secret API keys, " +
+                            "or use the 'paste an image URL' field instead.");
         }
-
         URI uploadUri = URI.create(supabaseUrl + "/storage/v1/object/" + bucket + "/" + path);
-
         HttpRequest request = HttpRequest.newBuilder(uploadUri)
                 .header("apikey", secretKey)
                 .header("Authorization", "Bearer " + secretKey)
                 .header("Content-Type", contentType)
-                .header("x-upsert", "true")
-                .POST(HttpRequest.BodyPublishers.ofByteArray(content))
+                .header("x-upsert", "true") // overwrite any existing file at this path
+                .POST(BodyPublishers.ofByteArray(content))
                 .build();
 
         HttpResponse<String> response;
@@ -53,13 +66,10 @@ public class SupabaseStorageService {
         } catch (Exception e) {
             throw new IllegalStateException("Could not reach Supabase Storage: " + e.getMessage(), e);
         }
-
         if (response.statusCode() < 200 || response.statusCode() >= 300) {
             throw new IllegalStateException(
-                "Supabase Storage upload failed (HTTP " + response.statusCode() + "): " + response.body()
-            );
+                    "Supabase Storage upload failed (HTTP " + response.statusCode() + "): " + response.body());
         }
-
         return supabaseUrl + "/storage/v1/object/public/" + bucket + "/" + path;
     }
 

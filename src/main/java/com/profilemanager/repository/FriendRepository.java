@@ -1,8 +1,8 @@
-package ph.edu.dlsu.lbycpob.profilemanager.repository;
+package com.profilemanager.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import ph.edu.dlsu.lbycpob.profilemanager.model.Friend;
+import com.profilemanager.model.Friend;
 
 import java.util.List;
 import java.util.UUID;
