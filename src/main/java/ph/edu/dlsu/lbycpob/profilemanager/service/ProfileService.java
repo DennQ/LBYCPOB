@@ -24,9 +24,8 @@ public class ProfileService {
         return profileRepository.findAllByOrderByNameAsc();
     }
 
-    /**
-     * Retrieves one profile using its ID.
-     */
+     // Retrieves one profile using its ID.
+
     public Profile getProfile(UUID id) {
         if (id == null) {
             throw new IllegalArgumentException("Profile ID is required.");
@@ -37,9 +36,8 @@ public class ProfileService {
                         new NoSuchElementException("Profile not found."));
     }
 
-    /**
-     * Searches for profiles whose names contain the search text.
-     */
+
+     //  Searches for profiles whose names contain the search text.
     public List<Profile> searchProfiles(String query) {
         String cleanedQuery = cleanRequiredText(
                 query,
@@ -50,9 +48,8 @@ public class ProfileService {
                 .findByNameContainingIgnoreCaseOrderByNameAsc(cleanedQuery);
     }
 
-    /**
-     * Returns the first alphabetical profile matching the search text.
-     */
+     //Returns the first alphabetical profile matching the search text.
+
     public Profile lookupFirstMatch(String query) {
         List<Profile> matches = searchProfiles(query);
 
@@ -65,9 +62,8 @@ public class ProfileService {
         return matches.get(0);
     }
 
-    /**
-     * Creates a new profile.
-     */
+     // Creates a new profile.
+
     @Transactional
     public Profile createProfile(String name) {
         String cleanedName = cleanRequiredText(
@@ -88,9 +84,9 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    /**
-     * Deletes an existing profile.
-     */
+
+     // Deletes an existing profile.
+
     @Transactional
     public void deleteProfile(UUID id) {
         if (id == null) {
@@ -104,9 +100,8 @@ public class ProfileService {
         profileRepository.deleteById(id);
     }
 
-    /**
-     * Updates a profile's status.
-     */
+     // Updates a profile's status.
+
     @Transactional
     public Profile updateStatus(UUID id, String status) {
         String cleanedStatus = cleanRequiredText(
@@ -120,9 +115,8 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    /**
-     * Updates a profile's quote.
-     */
+     // Updates a profile's quote.
+
     @Transactional
     public Profile updateQuote(UUID id, String quote) {
         String cleanedQuote = cleanRequiredText(
@@ -136,9 +130,8 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    /**
-     * Removes extra spaces and rejects null or blank values.
-     */
+    // Removes extra spaces and rejects null or blank values.
+
     private String cleanRequiredText(String value, String errorMessage) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(errorMessage);
