@@ -1,0 +1,7 @@
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/ProfileManagerApplication.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/controller/ProfileController.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/dto/Dtos.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/model/Profile.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/repository/ProfileRepository.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/service/ImageCompressionService.java
+/Users/angelaque/IdeaProjects/LBYCPOB/src/main/java/com/profilemanager/service/SupabaseStorageService.java

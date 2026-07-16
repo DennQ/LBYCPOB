@@ -11,18 +11,15 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Maps to public.profiles. Field-for-field match with the schema:
- *
- * id uuid primary key default gen_random_uuid()
- * name text not null, unique
- * status text not null default ''
- * quote text not null default ''
- * picture text not null default '<vercel blob default avatar url>'
- * created_at timestamptz not null default now()
+ * Maps to public.profiles table.
+ * Represents a user profile stored in the database.
  */
 @Entity
 @Table(name = "profiles")
 public class Profile {
+
+    private static final String DEFAULT_PICTURE =
+            "https://6fkrqtkwbcnqsois.public.blob.vercel-storage.com/avatars/default.webp";
 
     @Id
     @UuidGenerator
@@ -39,17 +36,16 @@ public class Profile {
     private String quote = "";
 
     @Column(nullable = false)
-    private String picture = "https://6fkrqtkwbcnqsois.public.blob.vercel-storage.com/avatars/default.webp";
+    private String picture = DEFAULT_PICTURE;
 
-    // insertable = false, updatable = false: the DB's default now()
-    // populates this column; we never write to it from Java.
     @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     public Profile() {
     }
 
-    public Profile(UUID id, String name, String status, String quote, String picture, OffsetDateTime createdAt) {
+    public Profile(UUID id, String name, String status, String quote,
+                   String picture, OffsetDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -108,8 +104,14 @@ public class Profile {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Profile profile)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Profile profile)) {
+            return false;
+        }
+
         return Objects.equals(id, profile.id)
                 && Objects.equals(name, profile.name)
                 && Objects.equals(status, profile.status)
@@ -139,18 +141,12 @@ public class Profile {
         return new Builder();
     }
 
-    /**
-     * Manual replacement for Lombok's @Builder. Fields with DB-side defaults
-     * (status, quote, picture) are pre-seeded here so that
-     * Profile.builder().name("x").build() still satisfies the NOT NULL
-     * constraints even if the caller never sets them.
-     */
     public static final class Builder {
         private UUID id;
         private String name;
         private String status = "";
         private String quote = "";
-        private String picture = "https://6fkrqtkwbcnqsois.public.blob.vercel-storage.com/avatars/default.webp";
+        private String picture = DEFAULT_PICTURE;
         private OffsetDateTime createdAt;
 
         private Builder() {

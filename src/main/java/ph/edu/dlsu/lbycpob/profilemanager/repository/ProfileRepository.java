@@ -13,6 +13,5 @@ public interface ProfileRepository extends JpaRepository<Profile, UUID> {
 
     Optional<Profile> findByNameIgnoreCase(String name);
 
-    // Replaces the original app.js .ilike("name", `%${query}%`).limit(1) search
     List<Profile> findByNameContainingIgnoreCaseOrderByNameAsc(String query);
 }

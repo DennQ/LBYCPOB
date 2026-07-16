@@ -1,0 +1,17 @@
+com/profilemanager/model/Profile.class
+com/profilemanager/ProfileManagerApplication.class
+com/profilemanager/dto/Dtos.class
+com/profilemanager/dto/Dtos$PictureResult.class
+com/profilemanager/dto/Dtos$ProfileListItem.class
+com/profilemanager/dto/Dtos$ApiError.class
+com/profilemanager/dto/Dtos$ProfileDetail.class
+com/profilemanager/service/SupabaseStorageService.class
+com/profilemanager/controller/ProfileController.class
+com/profilemanager/service/ImageCompressionService.class
+com/profilemanager/dto/Dtos$UpdateQuoteRequest.class
+com/profilemanager/dto/Dtos$UpdateStatusRequest.class
+com/profilemanager/dto/Dtos$FriendActionRequest.class
+com/profilemanager/dto/Dtos$NameRef.class
+com/profilemanager/dto/Dtos$NewProfileRequest.class
+com/profilemanager/repository/ProfileRepository.class
+com/profilemanager/dto/Dtos$UpdatePictureRequest.class
