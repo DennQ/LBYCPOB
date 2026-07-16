@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,29 +12,27 @@
         <relativePath/>
     </parent>
 
-    <groupId>ph.edu.dlsu.lbycpob</groupId>
-    <artifactId>ProfileManagerSpringBootV2</artifactId>
-    <version>0.1.1</version>
-
-    <name>ProfileManagerSpringBootV2</name>
-    <description>SocialNet Profile Manager App</description>
+    <groupId>com.profilemanager</groupId>
+    <artifactId>profilemanager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ProfileManagerSpringBoot</name>
+    <description>SocialNet Profile Manager</description>
 
     <properties>
         <java.version>25</java.version>
     </properties>
 
     <dependencies>
+        <!-- REST API and web application -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
         <!-- HTML templates -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!-- REST API and web application -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
         <!-- Database access -->
@@ -73,7 +69,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
