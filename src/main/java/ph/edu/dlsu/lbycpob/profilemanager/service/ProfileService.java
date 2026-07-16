@@ -18,9 +18,8 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    /**
-     * Retrieves all profiles in alphabetical order.
-     */
+    // get all files in order
+
     public List<Profile> listProfiles() {
         return profileRepository.findAllByOrderByNameAsc();
     }
