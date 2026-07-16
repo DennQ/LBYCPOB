@@ -10,9 +10,8 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Represents a user profile stored in the profiles database table.
- */
+  //Represents a user profile stored in the profiles database table.
+
 @Entity
 @Table(name = "profiles")
 public class Profile {
