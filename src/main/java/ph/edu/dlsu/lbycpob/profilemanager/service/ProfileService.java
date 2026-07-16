@@ -18,81 +18,68 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    // get all files in order
-
+    // Gets all profiles in alphabetical order.
     public List<Profile> listProfiles() {
         return profileRepository.findAllByOrderByNameAsc();
     }
 
-     // Retrieves one profile using its ID.
-
+    // Gets one profile using its ID.
     public Profile getProfile(UUID id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Profile ID is required.");
-        }
-
         return profileRepository.findById(id)
                 .orElseThrow(() ->
                         new NoSuchElementException("Profile not found."));
     }
 
-
-     //  Searches for profiles whose names contain the search text.
-    public List<Profile> searchProfiles(String query) {
-        String cleanedQuery = cleanRequiredText(
-                query,
-                "Please enter a profile name to search."
-        );
-
-        return profileRepository
-                .findByNameContainingIgnoreCaseOrderByNameAsc(cleanedQuery);
-    }
-
-     //Returns the first alphabetical profile matching the search text.
-
+    // Searches for a profile and returns the first matching result.
     public Profile lookupFirstMatch(String query) {
-        List<Profile> matches = searchProfiles(query);
+        String trimmed = query == null ? "" : query.trim();
 
-        if (matches.isEmpty()) {
-            throw new NoSuchElementException(
-                    "No profile matched the search."
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Name field is empty. Please enter a name to search."
             );
         }
 
-        return matches.get(0);
+        List<Profile> matches =
+                profileRepository
+                        .findByNameContainingIgnoreCaseOrderByNameAsc(trimmed);
+
+        if (matches.isEmpty()) {
+            throw new NoSuchElementException(
+                    "No profile found matching \"" + trimmed + "\"."
+            );
+        }
+
+        return matches.getFirst();
     }
 
-     // Creates a new profile.
-
+    // Creates a new profile.
     @Transactional
     public Profile createProfile(String name) {
-        String cleanedName = cleanRequiredText(
-                name,
-                "Please enter a profile name."
-        );
+        String trimmed = name == null ? "" : name.trim();
 
-        if (profileRepository.findByNameIgnoreCase(cleanedName).isPresent()) {
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Name field is empty. Please enter a name."
+            );
+        }
+
+        if (profileRepository.findByNameIgnoreCase(trimmed).isPresent()) {
             throw new IllegalStateException(
-                    "A profile with this name already exists."
+                    "A profile named \"" + trimmed + "\" already exists."
             );
         }
 
         Profile profile = Profile.builder()
-                .name(cleanedName)
+                .name(trimmed)
                 .build();
 
         return profileRepository.save(profile);
     }
 
-
-     // Deletes an existing profile.
-
+    // Deletes an existing profile.
     @Transactional
     public void deleteProfile(UUID id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Profile ID is required.");
-        }
-
         if (!profileRepository.existsById(id)) {
             throw new NoSuchElementException("Profile not found.");
         }
@@ -100,43 +87,27 @@ public class ProfileService {
         profileRepository.deleteById(id);
     }
 
-     // Updates a profile's status.
-
+    // Updates a profile's status.
     @Transactional
-    public Profile updateStatus(UUID id, String status) {
-        String cleanedStatus = cleanRequiredText(
-                status,
-                "Please enter a status."
-        );
+    public void updateStatus(UUID id, String status) {
+        String trimmed = status == null ? "" : status.trim();
 
-        Profile profile = getProfile(id);
-        profile.setStatus(cleanedStatus);
-
-        return profileRepository.save(profile);
-    }
-
-     // Updates a profile's quote.
-
-    @Transactional
-    public Profile updateQuote(UUID id, String quote) {
-        String cleanedQuote = cleanRequiredText(
-                quote,
-                "Please enter a quote."
-        );
-
-        Profile profile = getProfile(id);
-        profile.setQuote(cleanedQuote);
-
-        return profileRepository.save(profile);
-    }
-
-    // Removes extra spaces and rejects null or blank values.
-
-    private String cleanRequiredText(String value, String errorMessage) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(errorMessage);
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException("Status field is empty.");
         }
 
-        return value.trim();
+        getProfile(id).setStatus(trimmed);
+    }
+
+    // Updates a profile's quote.
+    @Transactional
+    public void updateQuote(UUID id, String quote) {
+        String trimmed = quote == null ? "" : quote.trim();
+
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException("Quote field is empty.");
+        }
+
+        getProfile(id).setQuote(trimmed);
     }
 }
