@@ -1,19 +1,43 @@
 package ph.edu.dlsu.lbycpob.profilemanager.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.UuidGenerator;
+
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Represents a user profile stored in the profiles database table.
+ */
+@Entity
+@Table(name = "profiles")
 public class Profile {
 
     private static final String DEFAULT_PICTURE =
             "https://6fkrqtkwbcnqsois.public.blob.vercel-storage.com/avatars/default.webp";
 
+    @Id
+    @UuidGenerator
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
+
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false)
     private String status = "";
+
+    @Column(nullable = false)
     private String quote = "";
+
+    @Column(nullable = false)
     private String picture = DEFAULT_PICTURE;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     public Profile() {
@@ -180,6 +204,14 @@ public class Profile {
                     picture,
                     createdAt
             );
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public UUID getId() {
+            return id;
         }
     }
 }
