@@ -35,11 +35,7 @@ public class EventController {
                 .toList();
     }
 
-    /**
-     * Event details page. Pass ?profileName=... to also learn whether
-     * that profile is already registered (for the Register/Cancel
-     * button state and the "You are registered" indicator).
-     */
+    
     @GetMapping("/{id}")
     public EventDetail getEvent(@PathVariable UUID id,
                                  @RequestParam(required = false) String profileName) {
