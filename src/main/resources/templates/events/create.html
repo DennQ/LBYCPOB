@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div id="app-wrapper">
+        <header id="app-header">
+            <h1 id="app-title">Create Event</h1>
+        </header>
+        <main id="main-content">
+            <form th:action="@{/organizations/{id}/events/create(id=${orgId})}" th:object="${event}" method="post">
+                <input type="hidden" th:field="*{organizationId}" />
+                <label>Name: <input type="text" th:field="*{name}" required></label><br>
+                <label>Description: <textarea th:field="*{description}"></textarea></label><br>
+                <label>Venue: <input type="text" th:field="*{venue}"></label><br>
+                <label>Event Date: <input type="datetime-local" th:field="*{eventDate}"></label><br>
+                <label>Capacity: <input type="number" th:field="*{capacity}"></label><br>
+                <button type="submit" class="btn sn-btn-green">Create</button>
+                <a th:href="@{/organizations/{id}(id=${orgId})}" class="btn sn-btn-gray">Cancel</a>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
