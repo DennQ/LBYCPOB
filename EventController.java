@@ -1,3 +1,5 @@
+// Goes in controller folder
+
 package com.profilemanager.controller;
 
 import org.springframework.web.bind.annotation.*;
