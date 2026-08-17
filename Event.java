@@ -10,20 +10,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Maps to public.events. Field-for-field match with the schema:
- *
- * id uuid primary key default gen_random_uuid()
- * title text not null
- * description text not null default ''
- * location text not null default ''
- * start_time timestamptz not null
- * end_time timestamptz null
- * created_at timestamptz not null default now()
- *
- * See sql/events_schema.sql for the full DDL (ddl-auto=none, so the
- * table must already exist in Supabase before this entity will work).
- */
+
 @Entity
 @Table(name = "events")
 public class Event {
