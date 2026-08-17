@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${org.name}">Organization</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div id="app-wrapper">
+        <header id="app-header">
+            <h1 id="app-title" th:text="${org.name}">Organization</h1>
+        </header>
+        <main id="main-content">
+            <p><strong>Description:</strong> <span th:text="${org.description}"></span></p>
+            <p><strong>Category:</strong> <span th:text="${org.category}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${org.email}"></span></p>
+            <a th:href="@{/organizations/{id}/events/create(id=${org.id})}" class="btn sn-btn-blue">Create Event</a>
+            <a href="/organizations" class="btn sn-btn-gray">Back</a>
+            <hr>
+            <h2>Events</h2>
+            <ul>
+                <li th:each="ev : ${events}">
+                    <span th:text="${ev.name}"></span> - 
+                    <span th:text="${ev.eventDate}"></span>
+                </li>
+                <li th:if="${events.isEmpty()}">No events yet.</li>
+            </ul>
+        </main>
+    </div>
+</body>
+</html>
