@@ -1,12 +1,5 @@
 // js/events.js
-// ================================================================
-// Member 3: Event Discovery & Registration.
-// The browser only ever talks to this server's own /api/events
-// endpoints. "Who am I" is just a typed profile name (same pattern
-// ProfileManager already uses for friend lookups) -- there's no
-// login system in this app, so the name box above the event list
-// doubles as identification for register/cancel/duplicate checks.
-// ================================================================
+
 
 const API_BASE = "/api/events";
 
