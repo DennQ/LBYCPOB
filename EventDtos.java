@@ -10,7 +10,7 @@ public class EventDtos {
     private EventDtos() {
     }
 
-    /** Row shown in the events list (upcoming / next-2-weeks / all). */
+    
     public record EventListItem(UUID id, String title, String location,
                                  OffsetDateTime startTime, OffsetDateTime endTime,
                                  long registrationCount) {
@@ -20,7 +20,7 @@ public class EventDtos {
         }
     }
 
-    /** Full detail shown on the event details page. */
+    
     public record EventDetail(UUID id, String title, String description, String location,
                                OffsetDateTime startTime, OffsetDateTime endTime,
                                long registrationCount, boolean isRegistered,
