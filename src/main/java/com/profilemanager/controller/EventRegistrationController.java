@@ -6,12 +6,14 @@ import com.profilemanager.service.EventRegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/registrations")
 public class EventRegistrationController {
+
     private final EventRegistrationService registrationService;
 
     public EventRegistrationController(EventRegistrationService registrationService) {
@@ -20,7 +22,10 @@ public class EventRegistrationController {
 
     @PostMapping
     public ResponseEntity<Dtos.RegistrationResponse> register(@RequestBody Dtos.RegistrationRequest request) {
-        EventRegistration registration = registrationService.register(request.eventId());
+        // We need profileId from the request - using a default or getting from body
+        // For now, we'll pass a dummy profileId. You should get this from authentication.
+        UUID defaultProfileId = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        EventRegistration registration = registrationService.register(request.eventId(), defaultProfileId);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Dtos.RegistrationResponse.fromEntity(registration));
     }
