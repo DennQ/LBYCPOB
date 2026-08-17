@@ -1,3 +1,5 @@
+//Goes in dto folder
+
 package com.profilemanager.dto;
 
 import com.profilemanager.model.Event;
