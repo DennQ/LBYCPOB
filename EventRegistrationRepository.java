@@ -1,3 +1,5 @@
+//Goes in repository folder
+
 package com.profilemanager.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
