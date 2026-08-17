@@ -11,19 +11,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Maps to public.event_registrations. One row = one profile registered
- * for one event. The unique(event_id, profile_id) constraint is what
- * prevents duplicate registration at the database level (the service
- * layer also checks first so we can return a friendly error message
- * instead of letting a constraint-violation exception bubble up).
- *
- * id uuid primary key default gen_random_uuid()
- * event_id uuid not null references events(id) on delete cascade
- * profile_id uuid not null references profiles(id) on delete cascade
- * registered_at timestamptz not null default now()
- * unique(event_id, profile_id)
- */
+
 @Entity
 @Table(name = "event_registrations", uniqueConstraints = {
         @UniqueConstraint(name = "uc_event_profile", columnNames = {"event_id", "profile_id"})
@@ -116,7 +104,7 @@ public class EventRegistration {
         return new Builder();
     }
 
-    /** Manual replacement for Lombok's @Builder. */
+    
     public static final class Builder {
         private UUID id;
         private UUID eventId;
