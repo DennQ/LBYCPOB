@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Organizations</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div id="app-wrapper">
+        <header id="app-header">
+            <h1 id="app-title">SocialNet - Organizations</h1>
+        </header>
+        <main id="main-content">
+            <div class="container">
+                <a href="/organizations/create" class="btn sn-btn-blue">Create New Organization</a>
+                <ul>
+                    <li th:each="org : ${organizations}">
+                        <a th:href="@{/organizations/{id}(id=${org.id})}" th:text="${org.name}"></a>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <footer id="status-bar">
+            <span>Organizations & Events</span>
+        </footer>
+    </div>
+</body>
+</html>
