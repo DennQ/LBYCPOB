@@ -1,3 +1,5 @@
+//Goes in model folder
+
 package com.profilemanager.model;
 
 import jakarta.persistence.Column;
