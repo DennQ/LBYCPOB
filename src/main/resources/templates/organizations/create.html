@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Organization</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div id="app-wrapper">
+        <header id="app-header">
+            <h1 id="app-title">Create New Organization</h1>
+        </header>
+        <main id="main-content">
+            <form th:action="@{/organizations/create}" th:object="${organization}" method="post">
+                <label>Name: <input type="text" th:field="*{name}" required></label><br>
+                <label>Description: <textarea th:field="*{description}"></textarea></label><br>
+                <label>Category: <input type="text" th:field="*{category}"></label><br>
+                <label>Email: <input type="email" th:field="*{email}"></label><br>
+                <button type="submit" class="btn sn-btn-green">Create</button>
+                <a href="/organizations" class="btn sn-btn-gray">Cancel</a>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
