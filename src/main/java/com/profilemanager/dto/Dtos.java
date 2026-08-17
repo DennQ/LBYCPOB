@@ -53,3 +53,99 @@ public class Dtos {
     public record ApiError(String error) {
     }
 }
+public record OrganizationRequest(
+    String name,
+    String description,
+    String category,
+    String email,
+    String logoUrl
+) {}
+
+public record OrganizationResponse(
+    UUID id,
+    String name,
+    String description,
+    String category,
+    String email,
+    String logoUrl,
+    OffsetDateTime createdAt,
+    OffsetDateTime updatedAt,
+    Long eventCount
+) {
+    public static OrganizationResponse fromEntity(Organization org, Long eventCount) {
+        return new OrganizationResponse(
+            org.getId(),
+            org.getName(),
+            org.getDescription(),
+            org.getCategory(),
+            org.getEmail(),
+            org.getLogoUrl(),
+            org.getCreatedAt(),
+            org.getUpdatedAt(),
+            eventCount != null ? eventCount : 0L
+        );
+    }
+}
+
+public record EventRequest(
+    String name,
+    String description,
+    String venue,
+    OffsetDateTime eventDate,
+    Integer capacity,
+    UUID organizationId
+) {}
+
+public record EventResponse(
+    UUID id,
+    String name,
+    String description,
+    String venue,
+    OffsetDateTime eventDate,
+    Integer capacity,
+    UUID organizationId,
+    String organizationName,
+    OffsetDateTime createdAt,
+    OffsetDateTime updatedAt,
+    Long registrationCount,
+    Boolean isRegistered
+) {
+    public static EventResponse fromEntity(Event event, String organizationName, Long registrationCount, Boolean isRegistered) {
+        return new EventResponse(
+            event.getId(),
+            event.getName(),
+            event.getDescription(),
+            event.getVenue(),
+            event.getEventDate(),
+            event.getCapacity(),
+            event.getOrganizationId(),
+            organizationName != null ? organizationName : "",
+            event.getCreatedAt(),
+            event.getUpdatedAt(),
+            registrationCount != null ? registrationCount : 0L,
+            isRegistered != null ? isRegistered : false
+        );
+    }
+}
+
+public record RegistrationRequest(
+    UUID eventId
+) {}
+
+public record RegistrationResponse(
+    UUID id,
+    UUID eventId,
+    UUID profileId,
+    OffsetDateTime registrationDate,
+    String status
+) {
+    public static RegistrationResponse fromEntity(EventRegistration registration) {
+        return new RegistrationResponse(
+            registration.getId(),
+            registration.getEventId(),
+            registration.getProfileId(),
+            registration.getRegistrationDate(),
+            registration.getStatus()
+        );
+    }
+}
