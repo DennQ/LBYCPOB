@@ -199,3 +199,20 @@ public class Profile {
         }
     }
 }
+    @Column(name = "student_id")
+    private String studentId;
+
+    @Column(name = "course")
+    private String course;
+
+    @Column(name = "year_level")
+    private Integer yearLevel;
+
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
+
+    public String getCourse() { return course; }
+    public void setCourse(String course) { this.course = course; }
+
+    public Integer getYearLevel() { return yearLevel; }
+    public void setYearLevel(Integer yearLevel) { this.yearLevel = yearLevel; }
