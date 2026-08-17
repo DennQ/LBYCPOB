@@ -38,3 +38,14 @@ CREATE INDEX IF NOT EXISTS idx_events_organization_id ON public.events(organizat
 CREATE INDEX IF NOT EXISTS idx_events_event_date ON public.events(event_date);
 CREATE INDEX IF NOT EXISTS idx_registrations_event_id ON public.event_registrations(event_id);
 CREATE INDEX IF NOT EXISTS idx_registrations_profile_id ON public.event_registrations(profile_id);
+
+CREATE TABLE IF NOT EXISTS public.organization_members (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    role TEXT DEFAULT 'member',
+    UNIQUE(organization_id, profile_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_org_members_org ON public.organization_members(organization_id);
+CREATE INDEX IF NOT EXISTS idx_org_members_profile ON public.organization_members(profile_id);

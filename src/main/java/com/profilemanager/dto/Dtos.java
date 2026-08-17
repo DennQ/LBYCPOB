@@ -4,7 +4,6 @@ import com.profilemanager.model.Event;
 import com.profilemanager.model.EventRegistration;
 import com.profilemanager.model.Organization;
 import com.profilemanager.model.Profile;
-
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +12,6 @@ public class Dtos {
 
     private Dtos() {}
 
-    // ===== Existing DTOs =====
     public record ProfileListItem(UUID id, String name, String picture) {
         public static ProfileListItem of(Profile p) {
             return new ProfileListItem(p.getId(), p.getName(), p.getPicture());
@@ -44,7 +42,6 @@ public class Dtos {
     public record UpdatePictureRequest(String pictureUrl) {}
     public record PictureResult(String url) {}
 
-    // ===== Organization DTOs =====
     public record OrganizationRequest(
             String name,
             String description,
@@ -83,7 +80,6 @@ public class Dtos {
         }
     }
 
-    // ===== Event DTOs =====
     public record EventRequest(
             String name,
             String description,
@@ -126,7 +122,6 @@ public class Dtos {
         }
     }
 
-    // ===== Registration DTOs =====
     public record RegistrationRequest(
             UUID eventId,
             UUID profileId
