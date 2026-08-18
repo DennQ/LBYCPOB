@@ -3,310 +3,1333 @@
 <head>
     <meta charset="UTF-8">
     <title>Organization & Event Management</title>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    >
+
     <style>
-        .org-card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: 0.2s; border-left: 4px solid var(--clr-blue); }
-        .org-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-        .org-card h3 { margin: 0 0 0.3rem; }
-        .org-card .org-meta { color: #555; font-size: 0.9rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-        .org-card .org-meta span { background: #f0f2f5; padding: 0.1rem 0.6rem; border-radius: 12px; }
-        .org-card .actions { margin-top: 0.5rem; }
-        .member-badge { background: #e9ecef; border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.8rem; display: inline-block; margin: 0.2rem; }
-        .member-badge.admin { background: #d4edda; }
-        .detail-section { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .detail-section h5 { color: var(--clr-blue); border-bottom: 2px solid #e9ecef; padding-bottom: 0.5rem; }
-        .form-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
-        .form-row input, .form-row select, .form-row textarea { flex: 1; min-width: 150px; }
-        .btn-sm { padding: 0.2rem 0.8rem; font-size: 0.8rem; }
-        #org-list .profile-item { padding: 0.6rem 0.8rem; border-radius: 6px; cursor: pointer; transition: 0.15s; }
-        #org-list .profile-item:hover { background: #dce8f6; }
-        #org-list .profile-item.active { background: var(--clr-blue); color: white; font-weight: 600; }
-        .event-item { background: #f8f9fa; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 0.6rem; border-left: 3px solid var(--clr-blue); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
-        .event-item .event-info { flex: 1; }
-        .event-item .event-name { font-weight: 600; font-size: 1.05rem; }
-        .event-item .event-meta { font-size: 0.9rem; color: #555; display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.2rem; }
-        .event-item .event-meta span { background: white; padding: 0.1rem 0.6rem; border-radius: 12px; }
-        .event-item .event-desc { font-size: 0.9rem; color: #333; margin-top: 0.2rem; }
-        .event-item .event-actions { display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem; }
-        .btn-danger-sm { background: #dc3545; color: white; border: none; border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.75rem; cursor: pointer; }
-        .btn-danger-sm:hover { background: #c82333; }
+        .org-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: 0.2s;
+            border-left: 4px solid var(--clr-blue);
+        }
+
+        .org-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .org-card h3 {
+            margin: 0 0 0.3rem;
+        }
+
+        .org-card .org-meta {
+            color: #555;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .org-card .org-meta span {
+            background: #f0f2f5;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .org-card .actions {
+            margin-top: 0.5rem;
+        }
+
+        .member-badge {
+            background: #e9ecef;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        .member-badge.admin {
+            background: #d4edda;
+        }
+
+        .detail-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .detail-section h5 {
+            color: var(--clr-blue);
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .form-row input,
+        .form-row select,
+        .form-row textarea {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-sm {
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        #org-list .profile-item {
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        #org-list .profile-item:hover {
+            background: #dce8f6;
+        }
+
+        #org-list .profile-item.active {
+            background: var(--clr-blue);
+            color: white;
+            font-weight: 600;
+        }
+
+        .event-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid var(--clr-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .event-item .event-info {
+            flex: 1;
+        }
+
+        .event-item .event-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .event-item .event-meta {
+            font-size: 0.9rem;
+            color: #555;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .event-item .event-meta span {
+            background: white;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .event-item .event-desc {
+            font-size: 0.9rem;
+            color: #333;
+            margin-top: 0.2rem;
+        }
+
+        .event-item .event-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .btn-danger-sm {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .btn-danger-sm:hover {
+            background: #c82333;
+        }
+
+        /* FIX: allow the right Organization Details panel to scroll */
+        #org-detail-panel {
+            overflow-y: auto !important;
+        }
     </style>
 </head>
+
 <body>
+
 <div id="app-wrapper">
+
     <header id="app-header">
         <div class="container-fluid d-flex align-items-center justify-content-between">
+
             <h1 id="app-title" class="mb-0">
                 LBYCPOB SocialNet - Organizations
             </h1>
+
             <nav>
-                <a href="/" style="color:white;font-size:0.9rem;margin-right:1rem;text-decoration:none;">Profile</a>
-                <a href="/organizations" style="color:white;font-size:0.9rem;margin-right:1rem;font-weight:bold;text-decoration:none;">Organizations</a>
-                <a href="/events" style="color:white;font-size:0.9rem;text-decoration:none;">Events</a>
+                <a
+                        href="/"
+                        style="color:white;font-size:0.9rem;margin-right:1rem;text-decoration:none;"
+                >
+                    Profile
+                </a>
+
+                <a
+                        href="/organizations"
+                        style="color:white;font-size:0.9rem;margin-right:1rem;font-weight:bold;text-decoration:none;"
+                >
+                    Organizations
+                </a>
+
+                <a
+                        href="/events"
+                        style="color:white;font-size:0.9rem;text-decoration:none;"
+                >
+                    Events
+                </a>
             </nav>
+
         </div>
     </header>
-    <main id="main-content" class="container-fluid py-3">
+
+
+    <main
+            id="main-content"
+            class="container-fluid py-3"
+    >
+
         <div class="row g-3">
+
+
+            <!-- LEFT PANEL -->
+
             <div class="col-md-4">
-                <div class="sn-panel h-100" style="overflow-y:auto;">
-                    <h5 class="panel-heading">All Organizations</h5>
+
+                <div
+                        class="sn-panel h-100"
+                        style="overflow-y:auto;"
+                >
+
+                    <h5 class="panel-heading">
+                        All Organizations
+                    </h5>
+
                     <div id="org-list"></div>
+
                     <hr>
-                    <h6>Create New Organization</h6>
-                    <input type="text" id="org-name" class="form-control mb-1" placeholder="Name *">
-                    <textarea id="org-desc" class="form-control mb-1" rows="2" placeholder="Description"></textarea>
-                    <input type="text" id="org-logo" class="form-control mb-1" placeholder="Logo URL (optional)">
-                    <input type="text" id="org-category" class="form-control mb-1" placeholder="Category">
-                    <input type="email" id="org-email" class="form-control mb-1" placeholder="Contact Email">
-                    <button id="btn-add-org" class="btn sn-btn-blue w-100">Create Organization</button>
+
+                    <h6>
+                        Create New Organization
+                    </h6>
+
+                    <input
+                            type="text"
+                            id="org-name"
+                            class="form-control mb-1"
+                            placeholder="Name *"
+                    >
+
+                    <textarea
+                            id="org-desc"
+                            class="form-control mb-1"
+                            rows="2"
+                            placeholder="Description"
+                    ></textarea>
+
+                    <input
+                            type="text"
+                            id="org-logo"
+                            class="form-control mb-1"
+                            placeholder="Logo URL (optional)"
+                    >
+
+                    <input
+                            type="text"
+                            id="org-category"
+                            class="form-control mb-1"
+                            placeholder="Category"
+                    >
+
+                    <input
+                            type="email"
+                            id="org-email"
+                            class="form-control mb-1"
+                            placeholder="Contact Email"
+                    >
+
+                    <button
+                            id="btn-add-org"
+                            class="btn sn-btn-blue w-100"
+                    >
+                        Create Organization
+                    </button>
+
                 </div>
+
             </div>
+
+
+            <!-- RIGHT PANEL -->
+
             <div class="col-md-8">
-                <div class="sn-panel h-100" id="org-detail-panel">
-                    <h5 class="panel-heading">Organization Details</h5>
+
+                <div
+                        class="sn-panel h-100"
+                        id="org-detail-panel"
+                >
+
+                    <h5 class="panel-heading">
+                        Organization Details
+                    </h5>
+
                     <div id="org-detail-content">
-                        <p class="empty-state" style="margin-top:2rem;">Select an organization from the left to view details.</p>
+
+                        <p
+                                class="empty-state"
+                                style="margin-top:2rem;"
+                        >
+                            Select an organization from the left to view details.
+                        </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </main>
+
+
     <footer id="status-bar">
-        <span id="status-message">Ready</span>
+
+        <span id="status-message">
+            Ready
+        </span>
+
     </footer>
+
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
 <script>
+
     let currentOrgId = null;
+
     let allProfiles = [];
 
-    function setStatus(msg, isErr = false) {
-        const el = document.getElementById('status-message');
-        el.textContent = msg;
-        el.style.color = isErr ? '#ff6b6b' : 'white';
+
+    // ============================================================
+    // STATUS MESSAGE
+    // ============================================================
+
+    function setStatus(
+        msg,
+        isErr = false
+    ) {
+
+        const el =
+            document.getElementById(
+                'status-message'
+            );
+
+        el.textContent =
+            msg;
+
+        el.style.color =
+            isErr
+                ? '#ff6b6b'
+                : 'white';
     }
+
+
+    // ============================================================
+    // LOAD PROFILES
+    // ============================================================
 
     async function loadProfiles() {
+
         try {
-            const res = await fetch('/api/profiles');
-            const data = await res.json();
-            allProfiles = data;
-        } catch (e) { console.warn('Could not load profiles'); }
+
+            const res =
+                await fetch(
+                    '/api/profiles'
+                );
+
+            const data =
+                await res.json();
+
+            allProfiles =
+                data;
+
+        } catch (e) {
+
+            console.warn(
+                'Could not load profiles'
+            );
+        }
     }
+
+
+    // ============================================================
+    // LOAD ORGANIZATIONS
+    // ============================================================
 
     async function loadOrganizations() {
-        const res = await fetch('/api/organizations');
-        const orgs = await res.json();
-        const container = document.getElementById('org-list');
-        container.innerHTML = '';
+
+        const res =
+            await fetch(
+                '/api/organizations'
+            );
+
+        const orgs =
+            await res.json();
+
+        const container =
+            document.getElementById(
+                'org-list'
+            );
+
+        container.innerHTML =
+            '';
+
         if (!orgs.length) {
-            container.innerHTML = '<p class="empty-state">No organizations yet.</p>';
+
+            container.innerHTML =
+                '<p class="empty-state">No organizations yet.</p>';
+
             return;
         }
-        orgs.forEach(org => {
-            const div = document.createElement('div');
-            div.className = 'profile-item';
-            div.textContent = org.name;
-            div.dataset.id = org.id;
-            div.onclick = () => loadOrganizationDetail(org.id);
-            if (currentOrgId && org.id === currentOrgId) div.classList.add('active');
-            container.appendChild(div);
-        });
+
+        orgs.forEach(
+            org => {
+
+                const div =
+                    document.createElement(
+                        'div'
+                    );
+
+                div.className =
+                    'profile-item';
+
+                div.textContent =
+                    org.name;
+
+                div.dataset.id =
+                    org.id;
+
+                div.onclick =
+                    () =>
+                        loadOrganizationDetail(
+                            org.id
+                        );
+
+                if (
+                    currentOrgId &&
+                    org.id === currentOrgId
+                ) {
+
+                    div.classList.add(
+                        'active'
+                    );
+                }
+
+                container.appendChild(
+                    div
+                );
+            }
+        );
     }
+
+
+    // ============================================================
+    // CREATE ORGANIZATION
+    // ============================================================
 
     async function createOrganization() {
-        const name = document.getElementById('org-name').value.trim();
-        if (!name) { setStatus('Organization name is required', true); return; }
+
+        const name =
+            document
+                .getElementById(
+                    'org-name'
+                )
+                .value
+                .trim();
+
+        if (!name) {
+
+            setStatus(
+                'Organization name is required',
+                true
+            );
+
+            return;
+        }
+
         const payload = {
+
             name,
-            description: document.getElementById('org-desc').value.trim(),
-            logoUrl: document.getElementById('org-logo').value.trim(),
-            category: document.getElementById('org-category').value.trim(),
-            email: document.getElementById('org-email').value.trim()
+
+            description:
+                document
+                    .getElementById(
+                        'org-desc'
+                    )
+                    .value
+                    .trim(),
+
+            logoUrl:
+                document
+                    .getElementById(
+                        'org-logo'
+                    )
+                    .value
+                    .trim(),
+
+            category:
+                document
+                    .getElementById(
+                        'org-category'
+                    )
+                    .value
+                    .trim(),
+
+            email:
+                document
+                    .getElementById(
+                        'org-email'
+                    )
+                    .value
+                    .trim()
         };
-        await fetch('/api/organizations', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        document.getElementById('org-name').value = '';
-        document.getElementById('org-desc').value = '';
-        document.getElementById('org-logo').value = '';
-        document.getElementById('org-category').value = '';
-        document.getElementById('org-email').value = '';
-        await loadOrganizations();
-        setStatus('Organization created!');
-    }
 
-    function formatEventDate(dateString) {
-        const d = new Date(dateString);
-        return d.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    }
+        await fetch(
+            '/api/organizations',
+            {
+                method:
+                    'POST',
 
-    async function deleteEvent(eventId, eventName) {
-        if (!confirm('Delete event "' + eventName + '"?')) return;
-        try {
-            const response = await fetch('/api/events/' + eventId, { method: 'DELETE' });
-            if (response.ok) {
-                setStatus('Event deleted!');
-                loadOrganizationDetail(currentOrgId);
-            } else {
-                setStatus('Error deleting event', true);
+                headers: {
+                    'Content-Type':
+                        'application/json'
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
             }
+        );
+
+        document.getElementById(
+            'org-name'
+        ).value = '';
+
+        document.getElementById(
+            'org-desc'
+        ).value = '';
+
+        document.getElementById(
+            'org-logo'
+        ).value = '';
+
+        document.getElementById(
+            'org-category'
+        ).value = '';
+
+        document.getElementById(
+            'org-email'
+        ).value = '';
+
+        await loadOrganizations();
+
+        setStatus(
+            'Organization created!'
+        );
+    }
+
+
+    // ============================================================
+    // FORMAT EVENT DATE
+    // ============================================================
+
+    function formatEventDate(
+        dateString
+    ) {
+
+        const d =
+            new Date(
+                dateString
+            );
+
+        return d.toLocaleString(
+            'en-US',
+            {
+                month:
+                    'short',
+
+                day:
+                    'numeric',
+
+                year:
+                    'numeric',
+
+                hour:
+                    '2-digit',
+
+                minute:
+                    '2-digit'
+            }
+        );
+    }
+
+
+    // ============================================================
+    // DELETE EVENT
+    // ============================================================
+
+    async function deleteEvent(
+        eventId,
+        eventName
+    ) {
+
+        if (
+            !confirm(
+                'Delete event "' +
+                eventName +
+                '"?'
+            )
+        ) {
+
+            return;
+        }
+
+        try {
+
+            const response =
+                await fetch(
+                    '/api/events/' +
+                    eventId,
+                    {
+                        method:
+                            'DELETE'
+                    }
+                );
+
+            if (response.ok) {
+
+                setStatus(
+                    'Event deleted!'
+                );
+
+                loadOrganizationDetail(
+                    currentOrgId
+                );
+
+            } else {
+
+                setStatus(
+                    'Error deleting event',
+                    true
+                );
+            }
+
         } catch (e) {
-            setStatus('Error: ' + e.message, true);
+
+            setStatus(
+                'Error: ' +
+                e.message,
+                true
+            );
         }
     }
 
-    async function loadOrganizationDetail(orgId) {
-        currentOrgId = orgId;
-        document.querySelectorAll('#org-list .profile-item').forEach(el => {
-            el.classList.toggle('active', el.dataset.id === orgId);
-        });
-        const [orgRes, membersRes, eventsRes] = await Promise.all([
-            fetch(`/api/organizations/${orgId}`),
-            fetch(`/api/organizations/${orgId}/members`),
-            fetch(`/api/events/organization/${orgId}`)
-        ]);
-        const org = await orgRes.json();
-        const members = await membersRes.json();
-        const events = await eventsRes.json();
-        const container = document.getElementById('org-detail-content');
 
-        let memberListHtml = members.length ? members.map(m => {
-            const profile = allProfiles.find(p => p.id === m.profileId);
-            const name = profile ? profile.name : m.profileId.substring(0,8) + '…';
-            return '<span class="member-badge ' + (m.role === 'admin' ? 'admin' : '') + '">' + name + ' (' + m.role + ')</span>';
-        }).join(' ') : 'No members yet.';
+    // ============================================================
+    // LOAD ORGANIZATION DETAILS
+    // ============================================================
 
-        let eventsHtml = events.length ? events.map(e => `
-            <div class="event-item">
-                <div class="event-info">
-                    <div class="event-name">${e.name}</div>
-                    <div class="event-meta">
-                        <span>Date: ${formatEventDate(e.eventDate)}</span>
-                        ${e.venue ? '<span>Venue: ' + e.venue + '</span>' : ''}
-                        ${e.capacity ? '<span>Capacity: ' + e.capacity + '</span>' : ''}
+    async function loadOrganizationDetail(
+        orgId
+    ) {
+
+        currentOrgId =
+            orgId;
+
+        document
+            .querySelectorAll(
+                '#org-list .profile-item'
+            )
+            .forEach(
+                el => {
+
+                    el.classList.toggle(
+                        'active',
+                        el.dataset.id === orgId
+                    );
+                }
+            );
+
+        const [
+            orgRes,
+            membersRes,
+            eventsRes
+        ] =
+            await Promise.all(
+                [
+                    fetch(
+                        `/api/organizations/${orgId}`
+                    ),
+
+                    fetch(
+                        `/api/organizations/${orgId}/members`
+                    ),
+
+                    fetch(
+                        `/api/events/organization/${orgId}`
+                    )
+                ]
+            );
+
+        const org =
+            await orgRes.json();
+
+        const members =
+            await membersRes.json();
+
+        const events =
+            await eventsRes.json();
+
+        const container =
+            document.getElementById(
+                'org-detail-content'
+            );
+
+        let memberListHtml =
+            members.length
+                ? members
+                    .map(
+                        m => {
+
+                            const profile =
+                                allProfiles.find(
+                                    p =>
+                                        p.id ===
+                                        m.profileId
+                                );
+
+                            const name =
+                                profile
+                                    ? profile.name
+                                    : m.profileId.substring(
+                                    0,
+                                    8
+                                ) + '…';
+
+                            return (
+                                '<span class="member-badge ' +
+                                (
+                                    m.role ===
+                                    'admin'
+                                        ? 'admin'
+                                        : ''
+                                ) +
+                                '">' +
+                                name +
+                                ' (' +
+                                m.role +
+                                ')</span>'
+                            );
+                        }
+                    )
+                    .join(' ')
+
+                : 'No members yet.';
+
+
+        let eventsHtml =
+            events.length
+                ? events
+                    .map(
+                        e => `
+
+                            <div class="event-item">
+
+                                <div class="event-info">
+
+                                    <div class="event-name">
+                                        ${e.name}
+                                    </div>
+
+                                    <div class="event-meta">
+
+                                        <span>
+                                            Date:
+                                            ${formatEventDate(
+                            e.eventDate
+                        )}
+                                        </span>
+
+                                        ${
+                            e.venue
+                                ? '<span>Venue: ' +
+                                e.venue +
+                                '</span>'
+                                : ''
+                        }
+
+                                        ${
+                            e.capacity
+                                ? '<span>Capacity: ' +
+                                e.capacity +
+                                '</span>'
+                                : ''
+                        }
+
+                                    </div>
+
+                                    ${
+                            e.description
+                                ? '<div class="event-desc">' +
+                                e.description +
+                                '</div>'
+                                : ''
+                        }
+
+                                </div>
+
+
+                                <div class="event-actions">
+
+                                    <button
+                                            class="btn-danger-sm"
+                                            onclick="deleteEvent('${e.id}', '${e.name}')"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        `
+                    )
+                    .join('')
+
+                : '<li>No events yet.</li>';
+
+
+        let profileOptions =
+            '<option value="">Select a profile</option>';
+
+        allProfiles.forEach(
+            p => {
+
+                profileOptions +=
+                    '<option value="' +
+                    p.id +
+                    '">' +
+                    p.name +
+                    '</option>';
+            }
+        );
+
+
+        container.innerHTML =
+            `
+
+                <div class="detail-section">
+
+                    <div
+                            style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:center;
+                            "
+                    >
+
+                        <h3>
+                            ${org.name}
+                        </h3>
+
+                        ${
+                org.logoUrl
+                    ? '<img src="' +
+                    org.logoUrl +
+                    '" style="max-height:60px;">'
+                    : ''
+            }
+
                     </div>
-                    ${e.description ? '<div class="event-desc">' + e.description + '</div>' : ''}
-                </div>
-                <div class="event-actions">
-                    <button class="btn-danger-sm" onclick="deleteEvent('${e.id}', '${e.name}')">Delete</button>
-                </div>
-            </div>
-        `).join('') : '<li>No events yet.</li>';
 
-        let profileOptions = '<option value="">Select a profile</option>';
-        allProfiles.forEach(p => {
-            profileOptions += '<option value="' + p.id + '">' + p.name + '</option>';
-        });
 
-        container.innerHTML = `
-            <div class="detail-section">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3>${org.name}</h3>
-                    ${org.logoUrl ? '<img src="' + org.logoUrl + '" style="max-height:60px;">' : ''}
+                    <p>
+                        <strong>Description:</strong>
+                        ${org.description || '—'}
+                    </p>
+
+
+                    <p>
+                        <strong>Category:</strong>
+                        ${org.category || '—'}
+                    </p>
+
+
+                    <p>
+                        <strong>Email:</strong>
+                        ${org.email || '—'}
+                    </p>
+
+
+                    <hr>
+
+
+                    <h5>
+                        Members
+                    </h5>
+
+
+                    <div id="member-list">
+                        ${memberListHtml}
+                    </div>
+
+
+                    <div class="form-row mt-2">
+
+                        <select
+                                id="add-member-select"
+                                class="form-control sn-input"
+                                style="flex:2;"
+                        >
+                            ${profileOptions}
+                        </select>
+
+
+                        <select
+                                id="add-member-role"
+                                class="form-control sn-input"
+                                style="flex:1;"
+                        >
+
+                            <option value="member">
+                                Member
+                            </option>
+
+                            <option value="admin">
+                                Admin
+                            </option>
+
+                        </select>
+
+
+                        <button
+                                class="btn sn-btn-green btn-sm"
+                                onclick="addMember()"
+                        >
+                            Add
+                        </button>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <h5>
+                        Events
+                    </h5>
+
+
+                    <div
+                            style="
+                                max-height:300px;
+                                overflow-y:auto;
+                            "
+                    >
+                        ${eventsHtml}
+                    </div>
+
+
+                    <h6 class="mt-3">
+                        Create Event
+                    </h6>
+
+
+                    <div class="form-row">
+
+                        <input
+                                type="text"
+                                id="ev-name"
+                                class="form-control sn-input"
+                                placeholder="Event name *"
+                        >
+
+
+                        <input
+                                type="text"
+                                id="ev-venue"
+                                class="form-control sn-input"
+                                placeholder="Venue"
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <input
+                                type="datetime-local"
+                                id="ev-date"
+                                class="form-control sn-input"
+                        >
+
+
+                        <input
+                                type="number"
+                                id="ev-capacity"
+                                class="form-control sn-input"
+                                placeholder="Capacity"
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <textarea
+                                id="ev-desc"
+                                class="form-control sn-input"
+                                rows="2"
+                                placeholder="Event description"
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                            class="btn sn-btn-blue btn-sm mt-2"
+                            onclick="createNewEvent()"
+                    >
+                        Create Event
+                    </button>
+
                 </div>
-                <p><strong>Description:</strong> ${org.description || '—'}</p>
-                <p><strong>Category:</strong> ${org.category || '—'}</p>
-                <p><strong>Email:</strong> ${org.email || '—'}</p>
-                <hr>
-                <h5>Members</h5>
-                <div id="member-list">${memberListHtml}</div>
-                <div class="form-row mt-2">
-                    <select id="add-member-select" class="form-control sn-input" style="flex:2;">
-                        ${profileOptions}
-                    </select>
-                    <select id="add-member-role" class="form-control sn-input" style="flex:1;">
-                        <option value="member">Member</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <button class="btn sn-btn-green btn-sm" onclick="addMember()">Add</button>
-                </div>
-                <hr>
-                <h5>Events</h5>
-                <div style="max-height:300px; overflow-y:auto;">${eventsHtml}</div>
-                <h6 class="mt-3">Create Event</h6>
-                <div class="form-row">
-                    <input type="text" id="ev-name" class="form-control sn-input" placeholder="Event name *">
-                    <input type="text" id="ev-venue" class="form-control sn-input" placeholder="Venue">
-                </div>
-                <div class="form-row">
-                    <input type="datetime-local" id="ev-date" class="form-control sn-input">
-                    <input type="number" id="ev-capacity" class="form-control sn-input" placeholder="Capacity">
-                </div>
-                <div class="form-row">
-                    <textarea id="ev-desc" class="form-control sn-input" rows="2" placeholder="Event description"></textarea>
-                </div>
-                <button class="btn sn-btn-blue btn-sm mt-2" onclick="createNewEvent()">Create Event</button>
-            </div>
-        `;
-        setStatus('Viewing ' + org.name);
+
+            `;
+
+        setStatus(
+            'Viewing ' +
+            org.name
+        );
     }
+
+
+    // ============================================================
+    // ADD MEMBER
+    // ============================================================
 
     async function addMember() {
-        const select = document.getElementById('add-member-select');
-        const profileId = select.value;
-        if (!profileId) { setStatus('Please select a profile', true); return; }
-        const role = document.getElementById('add-member-role').value;
-        if (!currentOrgId) { setStatus('No organization selected', true); return; }
+
+        const select =
+            document.getElementById(
+                'add-member-select'
+            );
+
+        const profileId =
+            select.value;
+
+        if (!profileId) {
+
+            setStatus(
+                'Please select a profile',
+                true
+            );
+
+            return;
+        }
+
+        const role =
+            document
+                .getElementById(
+                    'add-member-role'
+                )
+                .value;
+
+        if (!currentOrgId) {
+
+            setStatus(
+                'No organization selected',
+                true
+            );
+
+            return;
+        }
+
         try {
-            await fetch('/api/organizations/' + currentOrgId + '/members', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ profileId, role })
-            });
-            setStatus('Member added!');
-            loadOrganizationDetail(currentOrgId);
+
+            await fetch(
+                '/api/organizations/' +
+                currentOrgId +
+                '/members',
+                {
+                    method:
+                        'POST',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body:
+                        JSON.stringify(
+                            {
+                                profileId,
+                                role
+                            }
+                        )
+                }
+            );
+
+            setStatus(
+                'Member added!'
+            );
+
+            loadOrganizationDetail(
+                currentOrgId
+            );
+
         } catch (e) {
-            setStatus('Error adding member', true);
+
+            setStatus(
+                'Error adding member',
+                true
+            );
         }
     }
+
+
+    // ============================================================
+    // CREATE EVENT
+    // ============================================================
 
     async function createNewEvent() {
-        const name = document.getElementById('ev-name').value.trim();
-        const venue = document.getElementById('ev-venue').value.trim();
-        const eventDate = document.getElementById('ev-date').value;
-        const capacity = parseInt(document.getElementById('ev-capacity').value) || 0;
-        const description = document.getElementById('ev-desc').value.trim();
-        if (!name || !eventDate) { setStatus('Event name and date required', true); return; }
-        if (!currentOrgId) { setStatus('No organization selected', true); return; }
-        const dateObj = new Date(eventDate);
-        const formattedDate = dateObj.toISOString();
+
+        const name =
+            document
+                .getElementById(
+                    'ev-name'
+                )
+                .value
+                .trim();
+
+        const venue =
+            document
+                .getElementById(
+                    'ev-venue'
+                )
+                .value
+                .trim();
+
+        const eventDate =
+            document
+                .getElementById(
+                    'ev-date'
+                )
+                .value;
+
+        const capacity =
+            parseInt(
+                document
+                    .getElementById(
+                        'ev-capacity'
+                    )
+                    .value
+            ) || 0;
+
+        const description =
+            document
+                .getElementById(
+                    'ev-desc'
+                )
+                .value
+                .trim();
+
+        if (
+            !name ||
+            !eventDate
+        ) {
+
+            setStatus(
+                'Event name and date required',
+                true
+            );
+
+            return;
+        }
+
+        if (!currentOrgId) {
+
+            setStatus(
+                'No organization selected',
+                true
+            );
+
+            return;
+        }
+
+        const dateObj =
+            new Date(
+                eventDate
+            );
+
+        const formattedDate =
+            dateObj.toISOString();
+
         try {
-            const response = await fetch('/api/events', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name, venue, eventDate: formattedDate,
-                    organizationId: currentOrgId, capacity, description
-                })
-            });
+
+            const response =
+                await fetch(
+                    '/api/events',
+                    {
+                        method:
+                            'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json'
+                        },
+
+                        body:
+                            JSON.stringify(
+                                {
+                                    name,
+                                    venue,
+                                    eventDate:
+                                    formattedDate,
+                                    organizationId:
+                                    currentOrgId,
+                                    capacity,
+                                    description
+                                }
+                            )
+                    }
+                );
+
             if (!response.ok) {
-                setStatus('Error creating event: ' + response.status, true);
+
+                setStatus(
+                    'Error creating event: ' +
+                    response.status,
+                    true
+                );
+
                 return;
             }
-            setStatus('Event created!');
-            loadOrganizationDetail(currentOrgId);
-            document.getElementById('ev-name').value = '';
-            document.getElementById('ev-venue').value = '';
-            document.getElementById('ev-date').value = '';
-            document.getElementById('ev-capacity').value = '';
-            document.getElementById('ev-desc').value = '';
+
+            setStatus(
+                'Event created!'
+            );
+
+            loadOrganizationDetail(
+                currentOrgId
+            );
+
+            document.getElementById(
+                'ev-name'
+            ).value = '';
+
+            document.getElementById(
+                'ev-venue'
+            ).value = '';
+
+            document.getElementById(
+                'ev-date'
+            ).value = '';
+
+            document.getElementById(
+                'ev-capacity'
+            ).value = '';
+
+            document.getElementById(
+                'ev-desc'
+            ).value = '';
+
         } catch (e) {
-            console.error('Exception:', e);
-            setStatus('Error creating event: ' + e.message, true);
+
+            console.error(
+                'Exception:',
+                e
+            );
+
+            setStatus(
+                'Error creating event: ' +
+                e.message,
+                true
+            );
         }
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        document.getElementById('btn-add-org').addEventListener('click', createOrganization);
-        await loadProfiles();
-        await loadOrganizations();
-        setStatus('Select an organization');
-    });
+
+    // ============================================================
+    // PAGE START
+    // ============================================================
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        async () => {
+
+            document
+                .getElementById(
+                    'btn-add-org'
+                )
+                .addEventListener(
+                    'click',
+                    createOrganization
+                );
+
+            await loadProfiles();
+
+            await loadOrganizations();
+
+            setStatus(
+                'Select an organization'
+            );
+        }
+    );
+
 </script>
+
 </body>
+
 </html>
