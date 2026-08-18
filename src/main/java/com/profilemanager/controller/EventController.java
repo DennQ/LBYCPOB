@@ -23,8 +23,13 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Dtos.EventResponse>> listAllEvents() {
-        List<Event> events = eventService.listAll();
+    public ResponseEntity<List<Dtos.EventResponse>> listAllEvents(
+            @RequestParam(defaultValue = "all") String scope) {
+        List<Event> events = switch (scope) {
+            case "upcoming" -> eventService.findAllUpcomingEvents();
+            case "next-two-weeks" -> eventService.findUpcomingEvents();
+            default -> eventService.listAll();
+        };
         return ResponseEntity.ok(buildEventResponses(events));
     }
 
