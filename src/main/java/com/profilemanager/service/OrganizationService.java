@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
-/** Represents the class component in the SocialNet system. */
 public class OrganizationService {
+
     private final OrganizationRepository orgRepo;
     private final OrganizationMemberRepository memberRepo;
     private final ProfileRepository profileRepo;
@@ -37,12 +38,12 @@ public class OrganizationService {
     }
 
     @Transactional
-    public Organization create(Organization org) {
-        if (org.getName() == null || org.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Organization name is required.");
+    public Organization create(Organization organization) {
+        if (organization.getName() == null || organization.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Organization name is required");
         }
-        org.setName(org.getName().trim());
-        return orgRepo.save(org);
+        organization.setName(organization.getName().trim());
+        return orgRepo.save(organization);
     }
 
     @Transactional
@@ -73,7 +74,9 @@ public class OrganizationService {
     public List<Organization> getOrganizationsForProfile(UUID profileId) {
         List<OrganizationMember> members = memberRepo.findByProfileId(profileId);
         if (members.isEmpty()) return List.of();
-        List<UUID> orgIds = members.stream().map(OrganizationMember::getOrganizationId).toList();
+        List<UUID> orgIds = members.stream()
+                .map(OrganizationMember::getOrganizationId)
+                .collect(Collectors.toList());
         return orgRepo.findAllById(orgIds);
     }
 
@@ -88,11 +91,8 @@ public class OrganizationService {
         if (memberRepo.existsByOrganizationIdAndProfileId(orgId, profileId)) {
             throw new IllegalStateException("Profile is already a member");
         }
-        OrganizationMember member = OrganizationMember.builder()
-                .organizationId(orgId)
-                .profileId(profileId)
-                .role(role != null ? role : "member")
-                .build();
+        OrganizationMember member = new OrganizationMember(orgId, profileId,
+                role != null ? role : "member");
         memberRepo.save(member);
     }
 

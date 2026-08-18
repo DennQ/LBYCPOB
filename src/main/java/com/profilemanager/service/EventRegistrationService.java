@@ -5,12 +5,12 @@ import com.profilemanager.repository.EventRegistrationRepository;
 import com.profilemanager.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
-/** Represents the class component in the SocialNet system. */
 public class EventRegistrationService {
     private final EventRegistrationRepository registrationRepository;
     private final EventService eventService;
@@ -28,23 +28,19 @@ public class EventRegistrationService {
     public EventRegistration register(UUID eventId, UUID profileId) {
         eventService.getById(eventId);
         if (!profileRepository.existsById(profileId)) {
-            throw new NoSuchElementException("Profile not found with id: " + profileId);
+            throw new NoSuchElementException("Profile not found: " + profileId);
         }
         if (registrationRepository.existsByEventIdAndProfileId(eventId, profileId)) {
-            throw new IllegalStateException("User is already registered for this event.");
+            throw new IllegalStateException("User is already registered for this event");
         }
-        EventRegistration registration = EventRegistration.builder()
-                .eventId(eventId)
-                .profileId(profileId)
-                .status("registered")
-                .build();
+        EventRegistration registration = new EventRegistration(eventId, profileId);
         return registrationRepository.save(registration);
     }
 
     @Transactional
     public void cancelRegistration(UUID eventId, UUID profileId) {
         if (!registrationRepository.existsByEventIdAndProfileId(eventId, profileId)) {
-            throw new NoSuchElementException("Registration not found for this event and user.");
+            throw new NoSuchElementException("Registration not found");
         }
         registrationRepository.deleteByEventIdAndProfileId(eventId, profileId);
     }

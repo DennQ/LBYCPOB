@@ -8,12 +8,12 @@ import com.profilemanager.service.OrganizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/events")
-/** Represents the class component in the SocialNet system. */
 public class EventController {
     private final EventService eventService;
     private final OrganizationService organizationService;
@@ -58,14 +58,14 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<Dtos.EventResponse> createEvent(@RequestBody Dtos.EventRequest request) {
-        Event event = Event.builder()
-                .organizationId(request.organizationId())
-                .name(request.name())
-                .description(request.description())
-                .venue(request.venue())
-                .eventDate(request.eventDate())
-                .capacity(request.capacity())
-                .build();
+        Event event = new Event(
+                request.organizationId(),
+                request.name(),
+                request.description(),
+                request.venue(),
+                request.eventDate(),
+                request.capacity()
+        );
         Event saved = eventService.create(event);
         Organization org = organizationService.getById(saved.getOrganizationId());
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -75,17 +75,18 @@ public class EventController {
     @PutMapping("/{id}")
     public ResponseEntity<Dtos.EventResponse> updateEvent(@PathVariable UUID id,
                                                           @RequestBody Dtos.EventRequest request) {
-        Event updated = Event.builder()
-                .organizationId(request.organizationId())
-                .name(request.name())
-                .description(request.description())
-                .venue(request.venue())
-                .eventDate(request.eventDate())
-                .capacity(request.capacity())
-                .build();
+        Event updated = new Event(
+                request.organizationId(),
+                request.name(),
+                request.description(),
+                request.venue(),
+                request.eventDate(),
+                request.capacity()
+        );
         Event saved = eventService.update(id, updated);
         Organization org = organizationService.getById(saved.getOrganizationId());
-        return ResponseEntity.ok(Dtos.EventResponse.fromEntity(saved, org.getName(), eventService.getRegistrationCount(id), false));
+        return ResponseEntity.ok(Dtos.EventResponse.fromEntity(saved, org.getName(),
+                eventService.getRegistrationCount(id), false));
     }
 
     @DeleteMapping("/{id}")

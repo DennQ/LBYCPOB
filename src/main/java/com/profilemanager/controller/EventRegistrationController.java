@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/registrations")
-/** Represents the class component in the SocialNet system. */
 public class EventRegistrationController {
 
     private final EventRegistrationService registrationService;
@@ -23,11 +22,7 @@ public class EventRegistrationController {
 
     @PostMapping
     public ResponseEntity<Dtos.RegistrationResponse> register(@RequestBody Dtos.RegistrationRequest request) {
-        // No login system, so the frontend sends the real profileId it
-        // looked up by name. (Previously hardcoded to a placeholder UUID
-        // that didn't exist, so registration always failed silently.)
         EventRegistration registration = registrationService.register(request.eventId(), request.profileId());
-    
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Dtos.RegistrationResponse.fromEntity(registration));
     }

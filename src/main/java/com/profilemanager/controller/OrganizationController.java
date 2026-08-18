@@ -12,7 +12,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/organizations")
-/** Represents the class component in the SocialNet system. */
 public class OrganizationController {
     private final OrganizationService orgService;
 
@@ -43,13 +42,13 @@ public class OrganizationController {
 
     @PostMapping
     public ResponseEntity<Dtos.OrganizationResponse> createOrganization(@RequestBody Dtos.OrganizationRequest request) {
-        Organization org = Organization.builder()
-                .name(request.name())
-                .description(request.description())
-                .category(request.category())
-                .email(request.email())
-                .logoUrl(request.logoUrl())
-                .build();
+        Organization org = new Organization(
+                request.name(),
+                request.description(),
+                request.category(),
+                request.email(),
+                request.logoUrl()
+        );
         Organization saved = orgService.create(org);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Dtos.OrganizationResponse.fromEntity(saved));
@@ -58,13 +57,13 @@ public class OrganizationController {
     @PutMapping("/{id}")
     public ResponseEntity<Dtos.OrganizationResponse> updateOrganization(@PathVariable UUID id,
                                                                         @RequestBody Dtos.OrganizationRequest request) {
-        Organization updated = Organization.builder()
-                .name(request.name())
-                .description(request.description())
-                .category(request.category())
-                .email(request.email())
-                .logoUrl(request.logoUrl())
-                .build();
+        Organization updated = new Organization(
+                request.name(),
+                request.description(),
+                request.category(),
+                request.email(),
+                request.logoUrl()
+        );
         Organization saved = orgService.update(id, updated);
         return ResponseEntity.ok(Dtos.OrganizationResponse.fromEntity(saved));
     }
