@@ -22,10 +22,11 @@ public class EventRegistrationController {
 
     @PostMapping
     public ResponseEntity<Dtos.RegistrationResponse> register(@RequestBody Dtos.RegistrationRequest request) {
-        // We need profileId from the request - using a default or getting from body
-        // For now, we'll pass a dummy profileId. You should get this from authentication.
-        UUID defaultProfileId = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        EventRegistration registration = registrationService.register(request.eventId(), defaultProfileId);
+        // No login system, so the frontend sends the real profileId it
+        // looked up by name. (Previously hardcoded to a placeholder UUID
+        // that didn't exist, so registration always failed silently.)
+        EventRegistration registration = registrationService.register(request.eventId(), request.profileId());
+    
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Dtos.RegistrationResponse.fromEntity(registration));
     }
