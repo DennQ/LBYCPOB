@@ -34,39 +34,21 @@
 
 <body>
 
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
 
 <header id="app-header">
-
   <div class="container-fluid d-flex align-items-center justify-content-between">
-
     <h1 id="app-title" class="mb-0">
       LBYCPOB SocialNet - Profile Manager
     </h1>
-
-    <small class="text-white fw-semibold">
-      Prepared by: Angela, Gian and Julio
-    </small>
+    <nav>
+      <a href="/" style="color:white;font-size:0.9rem;margin-right:1rem;font-weight:bold;text-decoration:none;">Profile</a>
+      <a href="/organizations" style="color:white;font-size:0.9rem;margin-right:1rem;text-decoration:none;">Organizations</a>
+      <a href="/events" style="color:white;font-size:0.9rem;text-decoration:none;">Events</a>
+    </nav>
   </div>
-
-    <!-- Member 2 Organization Feature -->
-    <a
-            href="/organizations"
-            class="btn btn-light btn-sm"
-    >
-      Organizations
-    </a>
-
-  </div>
-
 </header>
 
 
-<!-- ============================================================
-     MAIN APPLICATION
-     ============================================================ -->
 
 <div id="app-wrapper">
 
@@ -78,10 +60,6 @@
     <div class="row g-3 h-100">
 
 
-      <!-- ====================================================
-           LEFT PANEL
-           STUDENT MANAGEMENT
-           ==================================================== -->
 
       <div class="col-12 col-md-3">
 
@@ -92,7 +70,6 @@
           </h6>
 
 
-          <!-- CREATE STUDENT -->
 
           <p class="field-label">
             Add Student:
@@ -135,7 +112,6 @@
           </button>
 
 
-          <!-- SEARCH STUDENT -->
 
           <p class="field-label">
             Search Student:
@@ -167,7 +143,6 @@
           </div>
 
 
-          <!-- ALL STUDENTS -->
 
           <p class="field-label">
             All Students:
@@ -177,7 +152,6 @@
                   id="profile-list"
                   class="profile-list-box"
           >
-            <!-- Populated through app.js -->
           </div>
 
         </div>
@@ -185,10 +159,6 @@
       </div>
 
 
-      <!-- ====================================================
-           CENTER PANEL
-           STUDENT INFORMATION
-           ==================================================== -->
 
       <div class="col-12 col-md-5">
 
@@ -221,7 +191,6 @@
           <hr class="sn-divider"/>
 
 
-          <!-- STUDENT INFORMATION -->
 
           <p class="field-label">
             Student ID:
@@ -259,7 +228,6 @@
           </div>
 
 
-          <!-- ORIGINAL SOCIALNET INFORMATION -->
 
           <p class="field-label">
             Current Status:
@@ -300,11 +268,6 @@
       </div>
 
 
-      <!-- ====================================================
-           RIGHT PANEL
-           EDIT STUDENT
-           ==================================================== -->
-
       <div class="col-12 col-md-4">
 
         <div class="sn-panel right-panel h-100">
@@ -314,7 +277,6 @@
           </h6>
 
 
-          <!-- EDIT STUDENT INFORMATION -->
 
           <p class="field-label">
             Student ID:
@@ -361,7 +323,6 @@
           </button>
 
 
-          <!-- STATUS -->
 
           <p class="field-label">
             Change Status:
@@ -382,7 +343,6 @@
           </button>
 
 
-          <!-- QUOTE -->
 
           <p class="field-label">
             Change Favorite Quote:
@@ -403,7 +363,6 @@
           </button>
 
 
-          <!-- PROFILE PICTURE -->
 
           <p class="field-label">
             Change Picture:
@@ -462,7 +421,6 @@
           </button>
 
 
-          <!-- FRIEND MANAGEMENT -->
 
           <p class="field-label">
             Manage Friends:
@@ -512,9 +470,6 @@
   </main>
 
 
-  <!-- ============================================================
-       STATUS BAR
-       ============================================================ -->
 
   <footer id="status-bar">
 
@@ -527,7 +482,6 @@
 </div>
 
 
-<!-- Bootstrap -->
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -536,7 +490,6 @@
 ></script>
 
 
-<!-- Student Profile Logic -->
 
 <script
         th:src="@{/js/app.js}"

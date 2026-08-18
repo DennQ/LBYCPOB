@@ -2,6 +2,7 @@ com/profilemanager/ProfileManagerApplication.class
 com/profilemanager/service/EventService.class
 com/profilemanager/dto/Dtos$EventRequest.class
 com/profilemanager/service/EventRegistrationService.class
+com/profilemanager/dto/Dtos$UpdateStudentInfoRequest.class
 com/profilemanager/controller/ProfileController.class
 com/profilemanager/controller/OrganizationController.class
 com/profilemanager/dto/Dtos$OrganizationResponse.class
@@ -16,6 +17,7 @@ com/profilemanager/exception/GlobalExceptionHandler.class
 com/profilemanager/model/Event$Builder.class
 com/profilemanager/model/Organization$Builder.class
 com/profilemanager/dto/Dtos$UpdateQuoteRequest.class
+com/profilemanager/controller/WebOrganizationController.class
 com/profilemanager/model/EventRegistration.class
 com/profilemanager/dto/Dtos$UpdateStatusRequest.class
 com/profilemanager/dto/Dtos$FriendActionRequest.class
@@ -34,6 +36,7 @@ com/profilemanager/dto/Dtos$ApiError.class
 com/profilemanager/dto/Dtos$EventResponse.class
 com/profilemanager/model/Event.class
 com/profilemanager/dto/Dtos$RegistrationResponse.class
+com/profilemanager/model/OrganizationMember.class
 com/profilemanager/dto/Dtos.class
 com/profilemanager/repository/OrganizationRepository.class
 com/profilemanager/repository/FriendRepository.class
@@ -42,4 +45,6 @@ com/profilemanager/dto/Dtos$RegistrationRequest.class
 com/profilemanager/model/Friend.class
 com/profilemanager/model/EventRegistration$Builder.class
 com/profilemanager/dto/Dtos$NameRef.class
+com/profilemanager/model/OrganizationMember$Builder.class
+com/profilemanager/repository/OrganizationMemberRepository.class
 com/profilemanager/controller/EventController.class
