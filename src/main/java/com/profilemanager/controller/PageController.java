@@ -9,4 +9,10 @@ public class PageController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/events")
+    public String events() {
+        return "events";
+    }
 }
+
