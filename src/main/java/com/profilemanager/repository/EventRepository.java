@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface EventRepository extends JpaRepository<Event, UUID> {
     List<Event> findByOrganizationIdOrderByEventDateAsc(UUID organizationId);
+    List<Event> findAllByOrderByEventDateAsc();
     List<Event> findByEventDateGreaterThanEqualOrderByEventDateAsc(OffsetDateTime from);
     @Query("SELECT e FROM Event e WHERE e.eventDate BETWEEN :now AND :twoWeeksFromNow ORDER BY e.eventDate ASC")
     List<Event> findUpcomingEvents(@Param("now") OffsetDateTime now, @Param("twoWeeksFromNow") OffsetDateTime twoWeeksFromNow);
