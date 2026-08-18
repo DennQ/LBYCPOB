@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "events")
+/** Represents the class component in the SocialNet system. */
 public class Event {
     @Id
     @UuidGenerator

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Represents the interface component in the SocialNet system. */
 public interface EventRegistrationRepository extends JpaRepository<EventRegistration, UUID> {
     Optional<EventRegistration> findByEventIdAndProfileId(UUID eventId, UUID profileId);
     List<EventRegistration> findByProfileId(UUID profileId);

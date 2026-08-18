@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/** Represents the interface component in the SocialNet system. */
 public interface ProfileRepository extends JpaRepository<Profile, UUID> {
 
     List<Profile> findAllByOrderByNameAsc();

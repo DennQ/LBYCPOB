@@ -8,6 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/** Represents the interface component in the SocialNet system. */
 public interface EventRepository extends JpaRepository<Event, UUID> {
     List<Event> findByOrganizationIdOrderByEventDateAsc(UUID organizationId);
     List<Event> findAllByOrderByEventDateAsc();

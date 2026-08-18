@@ -7,6 +7,7 @@ import com.profilemanager.model.Friend;
 import java.util.List;
 import java.util.UUID;
 
+/** Represents the interface component in the SocialNet system. */
 public interface FriendRepository extends JpaRepository<Friend, UUID> {
 
     List<Friend> findByProfileId(UUID profileId);

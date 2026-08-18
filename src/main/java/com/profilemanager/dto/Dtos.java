@@ -9,6 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/** Represents the class component in the SocialNet system. */
 public class Dtos {
 
     private Dtos() {}

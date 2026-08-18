@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "profiles")
+/** Represents the class component in the SocialNet system. */
 public class Profile {
 
     private static final String DEFAULT_PICTURE =

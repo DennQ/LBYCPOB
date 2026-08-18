@@ -10,6 +10,7 @@ import java.util.UUID;
 @Table(name = "event_registrations", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"event_id", "profile_id"})
 })
+/** Represents the class component in the SocialNet system. */
 public class EventRegistration {
     @Id
     @UuidGenerator

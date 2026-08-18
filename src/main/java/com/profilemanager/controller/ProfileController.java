@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/profiles")
+/** Represents the class component in the SocialNet system. */
 public class ProfileController {
 
     private final ProfileService profileService;

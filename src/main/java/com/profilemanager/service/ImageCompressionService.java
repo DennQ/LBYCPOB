@@ -20,6 +20,7 @@ import java.io.IOException;
  * preserved, never upscaled) and encodes it to WebP.
  */
 @Service
+/** Represents the class component in the SocialNet system. */
 public class ImageCompressionService {
 
     private static final int MAX_DIMENSION = 224;

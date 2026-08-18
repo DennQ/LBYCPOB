@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
+/** Represents the class component in the SocialNet system. */
 public class EventRegistrationService {
     private final EventRegistrationRepository registrationRepository;
     private final EventService eventService;

@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+/** Represents the class component in the SocialNet system. */
 public class ProfileManagerApplication {
 
     public static void main(String[] args) {

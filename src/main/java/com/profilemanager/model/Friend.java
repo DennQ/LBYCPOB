@@ -24,6 +24,7 @@ import java.util.UUID;
 @Table(name = "friends", uniqueConstraints = {
         @UniqueConstraint(name = "uc_profile_friend", columnNames = {"profile_id", "friend_id"})
 })
+/** Represents the class component in the SocialNet system. */
 public class Friend {
 
     @Id

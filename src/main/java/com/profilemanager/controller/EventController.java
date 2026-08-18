@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/events")
+/** Represents the class component in the SocialNet system. */
 public class EventController {
     private final EventService eventService;
     private final OrganizationService organizationService;

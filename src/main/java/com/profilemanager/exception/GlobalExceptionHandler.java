@@ -10,6 +10,7 @@ import com.profilemanager.dto.Dtos.ApiError;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
+/** Represents the class component in the SocialNet system. */
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)

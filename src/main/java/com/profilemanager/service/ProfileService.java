@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
+/** Represents the class component in the SocialNet system. */
 public class ProfileService {
 
     private final ProfileRepository profileRepository;

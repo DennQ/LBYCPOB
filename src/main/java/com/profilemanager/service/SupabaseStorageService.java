@@ -19,6 +19,7 @@ import java.time.Duration;
  * key -- Supabase requires the two to match exactly.
  */
 @Service
+/** Represents the class component in the SocialNet system. */
 public class SupabaseStorageService {
 
     private final HttpClient httpClient = HttpClient.newBuilder()

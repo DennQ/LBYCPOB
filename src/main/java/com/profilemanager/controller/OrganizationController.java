@@ -12,6 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/organizations")
+/** Represents the class component in the SocialNet system. */
 public class OrganizationController {
     private final OrganizationService orgService;
 
