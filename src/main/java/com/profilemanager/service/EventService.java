@@ -40,6 +40,10 @@ public class EventService {
         return eventRepository.findUpcomingEvents(now, twoWeeksFromNow);
     }
 
+    public List<Event> findAllUpcomingEvents() {
+    return eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(OffsetDateTime.now());
+    }
+
     public List<Event> findUpcomingEventsByOrganization(UUID organizationId) {
         return eventRepository.findUpcomingEventsByOrganization(organizationId, OffsetDateTime.now());
     }
