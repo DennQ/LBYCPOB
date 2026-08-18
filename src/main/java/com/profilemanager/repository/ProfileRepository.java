@@ -1,7 +1,7 @@
 package com.profilemanager.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.profilemanager.model.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +13,11 @@ public interface ProfileRepository extends JpaRepository<Profile, UUID> {
 
     Optional<Profile> findByNameIgnoreCase(String name);
 
-    // Replaces the original app.js .ilike("name", `%${query}%`).limit(1) search
-    List<Profile> findByNameContainingIgnoreCaseOrderByNameAsc(String query);
+    Optional<Profile> findByStudentIdIgnoreCase(String studentId);
+
+    List<Profile>
+    findByNameContainingIgnoreCaseOrStudentIdContainingIgnoreCaseOrderByNameAsc(
+            String name,
+            String studentId
+    );
 }
