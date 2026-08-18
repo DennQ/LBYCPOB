@@ -4,6 +4,7 @@ import com.profilemanager.model.Event;
 import com.profilemanager.model.EventRegistration;
 import com.profilemanager.model.Organization;
 import com.profilemanager.model.Profile;
+
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -12,35 +13,114 @@ public class Dtos {
 
     private Dtos() {}
 
-    public record ProfileListItem(UUID id, String name, String picture) {
+    // ============================================================
+    // STUDENT PROFILE DTOs
+    // ============================================================
+
+    public record ProfileListItem(
+            UUID id,
+            String name,
+            String studentId,
+            String course,
+            Integer yearLevel,
+            String picture
+    ) {
         public static ProfileListItem of(Profile p) {
-            return new ProfileListItem(p.getId(), p.getName(), p.getPicture());
-        }
-    }
-
-    public record NameRef(UUID id, String name) {
-        public static NameRef of(Profile p) {
-            return new NameRef(p.getId(), p.getName());
-        }
-    }
-
-    public record ProfileDetail(UUID id, String name, String status, String quote,
-                                String picture, List<NameRef> friends) {
-        public static ProfileDetail of(Profile p, List<Profile> friends) {
-            return new ProfileDetail(
-                    p.getId(), p.getName(), p.getStatus(), p.getQuote(), p.getPicture(),
-                    friends.stream().map(NameRef::of).toList()
+            return new ProfileListItem(
+                    p.getId(),
+                    p.getName(),
+                    p.getStudentId(),
+                    p.getCourse(),
+                    p.getYearLevel(),
+                    p.getPicture()
             );
         }
     }
 
-    public record NewProfileRequest(String name) {}
-    public record UpdateStatusRequest(String status) {}
-    public record UpdateQuoteRequest(String quote) {}
-    public record FriendActionRequest(String friendName) {}
-    public record ApiError(String error) {}
-    public record UpdatePictureRequest(String pictureUrl) {}
-    public record PictureResult(String url) {}
+    public record NameRef(
+            UUID id,
+            String name
+    ) {
+        public static NameRef of(Profile p) {
+            return new NameRef(
+                    p.getId(),
+                    p.getName()
+            );
+        }
+    }
+
+    public record ProfileDetail(
+            UUID id,
+            String name,
+            String studentId,
+            String course,
+            Integer yearLevel,
+            String status,
+            String quote,
+            String picture,
+            List<NameRef> friends
+    ) {
+        public static ProfileDetail of(
+                Profile p,
+                List<Profile> friends
+        ) {
+            return new ProfileDetail(
+                    p.getId(),
+                    p.getName(),
+                    p.getStudentId(),
+                    p.getCourse(),
+                    p.getYearLevel(),
+                    p.getStatus(),
+                    p.getQuote(),
+                    p.getPicture(),
+                    friends.stream()
+                            .map(NameRef::of)
+                            .toList()
+            );
+        }
+    }
+
+    public record NewProfileRequest(
+            String name,
+            String studentId,
+            String course,
+            Integer yearLevel
+    ) {}
+
+    public record UpdateStudentInfoRequest(
+            String studentId,
+            String course,
+            Integer yearLevel
+    ) {}
+
+    public record UpdateStatusRequest(
+            String status
+    ) {}
+
+    public record UpdateQuoteRequest(
+            String quote
+    ) {}
+
+    public record FriendActionRequest(
+            String friendName
+    ) {}
+
+    public record ApiError(
+            String error
+    ) {}
+
+    public record UpdatePictureRequest(
+            String pictureUrl
+    ) {}
+
+    public record PictureResult(
+            String url
+    ) {}
+
+
+    // ============================================================
+    // ORGANIZATION DTOs
+    // ============================================================
 
     public record OrganizationRequest(
             String name,
@@ -61,7 +141,10 @@ public class Dtos {
             OffsetDateTime updatedAt,
             Long eventCount
     ) {
-        public static OrganizationResponse fromEntity(Organization org, Long eventCount) {
+        public static OrganizationResponse fromEntity(
+                Organization org,
+                Long eventCount
+        ) {
             return new OrganizationResponse(
                     org.getId(),
                     org.getName(),
@@ -75,10 +158,17 @@ public class Dtos {
             );
         }
 
-        public static OrganizationResponse fromEntity(Organization org) {
+        public static OrganizationResponse fromEntity(
+                Organization org
+        ) {
             return fromEntity(org, 0L);
         }
     }
+
+
+    // ============================================================
+    // EVENT DTOs
+    // ============================================================
 
     public record EventRequest(
             String name,
@@ -103,8 +193,12 @@ public class Dtos {
             Long registrationCount,
             Boolean isRegistered
     ) {
-        public static EventResponse fromEntity(Event event, String organizationName,
-                                               Long registrationCount, Boolean isRegistered) {
+        public static EventResponse fromEntity(
+                Event event,
+                String organizationName,
+                Long registrationCount,
+                Boolean isRegistered
+        ) {
             return new EventResponse(
                     event.getId(),
                     event.getName(),
@@ -113,14 +207,25 @@ public class Dtos {
                     event.getEventDate(),
                     event.getCapacity(),
                     event.getOrganizationId(),
-                    organizationName != null ? organizationName : "",
+                    organizationName != null
+                            ? organizationName
+                            : "",
                     event.getCreatedAt(),
                     event.getUpdatedAt(),
-                    registrationCount != null ? registrationCount : 0L,
-                    isRegistered != null ? isRegistered : false
+                    registrationCount != null
+                            ? registrationCount
+                            : 0L,
+                    isRegistered != null
+                            ? isRegistered
+                            : false
             );
         }
     }
+
+
+    // ============================================================
+    // EVENT REGISTRATION DTOs
+    // ============================================================
 
     public record RegistrationRequest(
             UUID eventId,
@@ -134,7 +239,9 @@ public class Dtos {
             OffsetDateTime registrationDate,
             String status
     ) {
-        public static RegistrationResponse fromEntity(EventRegistration registration) {
+        public static RegistrationResponse fromEntity(
+                EventRegistration registration
+        ) {
             return new RegistrationResponse(
                     registration.getId(),
                     registration.getEventId(),
